@@ -52,17 +52,17 @@ if Code.ensure_loaded?(Phoenix.LiveView) do
     # See also:
     # https://develop.sentry.dev/sdk/event-payloads/request/
 
-    @doc false
-    @spec on_mount(:default, map(), map(), struct()) :: {:cont, struct()}
-    def on_mount(:default, params, _session, socket), do: on_mount(params, socket)
-
     @doc """
     Handles deadviews
     """
-    @spec on_mount(:default, :not_mounted_at_router, map(), struct()) :: {:cont, struct()}
+    @spec on_mount(_args, :not_mounted_at_router, map(), struct()) :: {:cont, struct()}
     def on_mount(:default, :not_mounted_at_router, _session, socket) do
       {:cont, socket}
     end
+
+    @doc false
+    @spec on_mount(:default, map(), map(), struct()) :: {:cont, struct()}
+    def on_mount(:default, params, _session, socket), do: on_mount(params, socket)
 
     ## Helpers
 
