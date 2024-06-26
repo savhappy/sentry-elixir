@@ -55,8 +55,8 @@ if Code.ensure_loaded?(Phoenix.LiveView) do
     @doc """
     Handles deadviews
     """
-    @spec on_mount(_args, :not_mounted_at_router, map(), struct()) :: {:cont, struct()}
-    def on_mount(:default, :not_mounted_at_router, _session, socket) do
+    @spec on_mount(atom(), :not_mounted_at_router, map(), struct()) :: {:cont, struct()}
+    def on_mount(_args, :not_mounted_at_router, _session, socket) do
       {:cont, socket}
     end
 
