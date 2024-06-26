@@ -56,12 +56,17 @@ if Code.ensure_loaded?(Phoenix.LiveView) do
     @spec on_mount(:default, map(), map(), struct()) :: {:cont, struct()}
     def on_mount(:default, params, _session, socket), do: on_mount(params, socket)
 
+    @doc """
+    Handles deadviews
+    """
+    @spec on_mount(:default, :not_mounted_at_router, map(), struct()) :: {:cont, struct()}
+    def on_mount(:default, :not_mounted_at_router, _session, socket) do
+      {:cont, socket}
+    end
+
     ## Helpers
 
     defp on_mount(params, %Phoenix.LiveView.Socket{} = socket) do
-      IO.inspect(params)
-      IO.inspect(socket)
-
       Context.set_extra_context(%{socket_id: socket.id})
       Context.set_request_context(%{url: socket.host_uri})
 
