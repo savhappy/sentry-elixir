@@ -391,7 +391,9 @@ defmodule Sentry.Client do
           end
 
         {:error, {status, headers, _body}} ->
-          error_header = ""
+          error_header =
+            :proplists.get_value("X-Sentry-Error", headers, nil) ||
+              :proplists.get_value("x-sentry-error", headers, nil) || ""
 
           if error_header != "" do
             "Received #{status} from Sentry server: #{error_header}"
