@@ -390,7 +390,7 @@ defmodule Sentry.Client do
               "Error in HTTP Request to Sentry - #{inspect(last_error)}"
           end
 
-        {:error, {status, headers, _body}} ->
+        {:error, {status, headers, body}} ->
             {:error, ClientError.server_error(status, headers, body)}
 
         {:error, reason} ->
