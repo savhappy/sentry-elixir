@@ -391,13 +391,10 @@ defmodule Sentry.Client do
           end
 
         {:error, {status, headers, _body}} ->
-          error_header = ""
+            {:error, ClientError.server_error(status, headers, body)}
 
-          if error_header != "" do
-            "Received #{status} from Sentry server: #{error_header}"
-          else
-            "Received #{status} from Sentry server"
-          end
+        {:error, reason} ->
+            {:error, ClientError.new(reason)}
 
         {:ok, _} ->
           nil
